@@ -8,7 +8,7 @@ SeGrid Router enables auto scaling selenoid grid by managing launch and terminat
 
 ## Getting started
 
-You can chose to either launch a pre-configured machine from AWS marketplace, and install manually on a pre-launched ubuntu instance.
+You can chose to either launch a pre-configured machine from AWS marketplace, OR install manually on a pre-launched ubuntu instance.
 
 > While launching instance, you MUST chose an IAM profile which allows to launch/ terminate/ start/ stop/ describe instances. This is required as SeGrid router process will manage these instances automatically at runtime.
 
