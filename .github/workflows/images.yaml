@@ -42,20 +42,20 @@ jobs:
 
 
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/orienlabs
-        docker push \
-        public.ecr.aws/orienlabs/selenoid-ui:${{ vars.SELENOID_UI_VERSION }} \
-        public.ecr.aws/orienlabs/selenoid:${{ vars.SELENOID_VERSION }}       \
-        public.ecr.aws/orienlabs/video-recorder:${{ vars.RECORDER_VERSION }} \
-        public.ecr.aws/orienlabs/browsers/edge:${{ vars.EDGE_VERSION }}      \
-        public.ecr.aws/orienlabs/browsers/firefox:${{ vars.FIREFOX_VERSION }}  \
-        public.ecr.aws/orienlabs/browsers/chrome:${{ vars.CHROME_VERSION }}  \
-        public.ecr.aws/orienlabs/browsers/opera:${{ vars.OPERA_VERSION }}    \
-        public.ecr.aws/orienlabs/browsers/safari:${{ vars.SAFARI_VERSION }}  \
-        public.ecr.aws/orienlabs/selenoid-ui:latest                         \
-        public.ecr.aws/orienlabs/selenoid:latest                            \
-        public.ecr.aws/orienlabs/video-recorder:latest                      \
-        public.ecr.aws/orienlabs/browsers/edge:latest                       \
-        public.ecr.aws/orienlabs/browsers/firefox:latest                    \
-        public.ecr.aws/orienlabs/browsers/chrome:latest                     \
-        public.ecr.aws/orienlabs/browsers/opera:latest                      \
-        public.ecr.aws/orienlabs/browsers/safari:latest
+        
+        docker push public.ecr.aws/orienlabs/selenoid-ui:${{ vars.SELENOID_UI_VERSION }} 
+        docker push public.ecr.aws/orienlabs/selenoid:${{ vars.SELENOID_VERSION }}       
+        docker push public.ecr.aws/orienlabs/video-recorder:${{ vars.RECORDER_VERSION }} 
+        docker push public.ecr.aws/orienlabs/browsers/edge:${{ vars.EDGE_VERSION }}      
+        docker push public.ecr.aws/orienlabs/browsers/firefox:${{ vars.FIREFOX_VERSION }}  
+        docker push public.ecr.aws/orienlabs/browsers/chrome:${{ vars.CHROME_VERSION }}  
+        docker push public.ecr.aws/orienlabs/browsers/opera:${{ vars.OPERA_VERSION }}    
+        docker push public.ecr.aws/orienlabs/browsers/safari:${{ vars.SAFARI_VERSION }}  
+        docker push public.ecr.aws/orienlabs/selenoid-ui:latest                         
+        docker push public.ecr.aws/orienlabs/selenoid:latest                            
+        docker push public.ecr.aws/orienlabs/video-recorder:latest                      
+        docker push public.ecr.aws/orienlabs/browsers/edge:latest                       
+        docker push public.ecr.aws/orienlabs/browsers/firefox:latest                    
+        docker push public.ecr.aws/orienlabs/browsers/chrome:latest                     
+        docker push public.ecr.aws/orienlabs/browsers/opera:latest                      
+        docker push public.ecr.aws/orienlabs/browsers/safari:latest
