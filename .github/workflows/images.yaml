@@ -1,0 +1,63 @@
+name: Maintain docker images in ECR repo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-gradle-project:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout project sources
+      uses: actions/checkout@v2
+    - name: Pull Docker Image and Push to ECR
+      run: |
+        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws configure set default.region us-east-1
+
+        docker pull docker.io/aerokube/selenoid-ui:${{ env.SELENOID_UI_VERSION }}
+        docker pull docker.io/aerokube/selenoid:${{ env.SELENOID_VERSION }}
+        docker pull docker.io/aerokube/video-recorder:${{ env.RECORDER_VERSION }}
+        docker pull docker.io/browsers/edge:${{ env.EDGE_VERSION }}
+        docker pull docker.io/browsers/firefox:${{ env.FIREFOX_VERSION }}
+        docker pull docker.io/browsers/chrome:${{ env.CHROME_VERSION }}
+        docker pull docker.io/browsers/opera:${{ env.OPERA_VERSION }}
+        docker pull docker.io/browsers/safari:${{ env.SAFARI_VERSION }}
+
+        docker tag docker.io/aerokube/selenoid-ui:${{ env.SELENOID_UI_VERSION }} public.ecr.aws/orienlabs/selenoid-ui:${{ env.SELENOID_UI_VERSION }}
+        docker tag docker.io/aerokube/selenoid:${{ env.SELENOID_VERSION }}       public.ecr.aws/orienlabs/selenoid:${{ env.SELENOID_VERSION }}
+        docker tag docker.io/aerokube/video-recorder:${{ env.RECORDER_VERSION }} public.ecr.aws/orienlabs/video-recorder:${{ env.RECORDER_VERSION }}
+        docker tag docker.io/browsers/edge:${{ env.EDGE_VERSION }}               public.ecr.aws/orienlabs/browsers/edge:${{ env.EDGE_VERSION }}
+        docker tag docker.io/browsers/firefox:${{ env.FIREFOX_VERSION }}         public.ecr.aws/orienlabs/browsers/firefox:${{ env.FIREFOX_VERSION }}
+        docker tag docker.io/browsers/chrome:${{ env.CHROME_VERSION }}           public.ecr.aws/orienlabs/browsers/chrome:${{ env.CHROME_VERSION }}
+        docker tag docker.io/browsers/opera:${{ env.OPERA_VERSION }}             public.ecr.aws/orienlabs/browsers/opera:${{ env.OPERA_VERSION }}
+        docker tag docker.io/browsers/safari:${{ env.SAFARI_VERSION }}           public.ecr.aws/orienlabs/browsers/safari:${{ env.SAFARI_VERSION }}
+
+        docker tag docker.io/aerokube/selenoid-ui:${{ env.SELENOID_UI_VERSION }} public.ecr.aws/orienlabs/selenoid-ui:latest
+        docker tag docker.io/aerokube/selenoid:${{ env.SELENOID_VERSION }}       public.ecr.aws/orienlabs/selenoid:latest
+        docker tag docker.io/aerokube/video-recorder:${{ env.RECORDER_VERSION }} public.ecr.aws/orienlabs/video-recorder:latest
+        docker tag docker.io/browsers/edge:${{ env.EDGE_VERSION }}               public.ecr.aws/orienlabs/browsers/edge:latest
+        docker tag docker.io/browsers/firefox:${{ env.FIREFOX_VERSION }}         public.ecr.aws/orienlabs/browsers/firefox:latest
+        docker tag docker.io/browsers/chrome:${{ env.CHROME_VERSION }}           public.ecr.aws/orienlabs/browsers/chrome:latest
+        docker tag docker.io/browsers/opera:${{ env.OPERA_VERSION }}             public.ecr.aws/orienlabs/browsers/opera:latest
+        docker tag docker.io/browsers/safari:${{ env.SAFARI_VERSION }}           public.ecr.aws/orienlabs/browsers/safari:latest
+
+
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/orienlabs
+        docker push \
+        public.ecr.aws/orienlabs/selenoid-ui:${{ env.SELENOID_UI_VERSION }} \
+        public.ecr.aws/orienlabs/selenoid:${{ env.SELENOID_VERSION }}       \
+        public.ecr.aws/orienlabs/video-recorder:${{ env.RECORDER_VERSION }} \
+        public.ecr.aws/orienlabs/browsers/edge:${{ env.EDGE_VERSION }}      \
+        public.ecr.aws/orienlabs/browsers/firefox:${{ env.FIREFOX_VERSION }}  \
+        public.ecr.aws/orienlabs/browsers/chrome:${{ env.CHROME_VERSION }}  \
+        public.ecr.aws/orienlabs/browsers/opera:${{ env.OPERA_VERSION }}    \
+        public.ecr.aws/orienlabs/browsers/safari:${{ env.SAFARI_VERSION }}  \
+        public.ecr.aws/orienlabs/selenoid-ui:latest                         \
+        public.ecr.aws/orienlabs/selenoid:latest                            \
+        public.ecr.aws/orienlabs/video-recorder:latest                      \
+        public.ecr.aws/orienlabs/browsers/edge:latest                       \
+        public.ecr.aws/orienlabs/browsers/firefox:latest                    \
+        public.ecr.aws/orienlabs/browsers/chrome:latest                     \
+        public.ecr.aws/orienlabs/browsers/opera:latest                      \
+        public.ecr.aws/orienlabs/browsers/safari:latest
