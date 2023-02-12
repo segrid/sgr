@@ -53,8 +53,9 @@ htpasswd -bc /home/segrid/config/grid-router/users.htpasswd $GGR_USER $GGR_PASSW
 
 sudo chmod -R 777 /home/segrid
 sudo docker network create segrid
+[[ -z "${SEGRID_VERSION}" ]] && SEGRID_VERSION='latest' || SEGRID_VERSION="${SEGRID_VERSION}"
 sudo docker run -d \
-    --restart always                             \
+    --restart no                                 \
 	-v /var/run/docker.sock:/var/run/docker.sock \
     -p 8080:8080 			                     \
     --name segrid-router 	                     \
@@ -67,10 +68,11 @@ sudo docker run -d \
     -e GGR_QUOTA_USER=$GGR_USER 	             \
     -e GGR_QUOTA_PASSWORD=$GGR_PASSWORD 	     \
     -e CONFIG_DIR=/home/segrid/config            \
+    -e SEGRID_VERSION=$SEGRID_VERSION 	         \
     --net=host                                   \
     --pull always 			                     \
     -v /home/segrid:/home/segrid:rw              \
-    public.ecr.aws/orienlabs/segrid-router:latest
+    public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
 
 #keep it connected from a Jenkins machine    
 #sudo docker logs -f segrid-router
