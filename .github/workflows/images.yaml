@@ -2,6 +2,8 @@ name: Maintain docker images in ECR repo
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   pull_push_images:
