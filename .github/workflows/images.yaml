@@ -15,68 +15,94 @@ jobs:
         aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws configure set default.region us-east-1
 
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/orienlabs
+
         content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/edge/tags")
         version=`echo $content | jq -r '.results[1].name'`
-        echo 'Latest Edge version is $version'
+        echo "Latest Edge version is $version"
         docker pull docker.io/browsers/edge:$version
         docker tag docker.io/browsers/edge:$version               public.ecr.aws/orienlabs/browsers/edge:$version
         docker tag docker.io/browsers/edge:$version               public.ecr.aws/orienlabs/browsers/edge:latest
         docker push public.ecr.aws/orienlabs/browsers/edge:$version
         docker push public.ecr.aws/orienlabs/browsers/edge:latest
 
-        docker pull docker.io/aerokube/selenoid-ui:${{ vars.SELENOID_UI_VERSION }}
-        docker pull docker.io/aerokube/selenoid:${{ vars.SELENOID_VERSION }}
-        docker pull docker.io/aerokube/ggr-ui:${{ vars.GGR_UI_VERSION }}
-        docker pull docker.io/aerokube/ggr:${{ vars.GGR_VERSION }}
-        docker pull docker.io/selenoid/video-recorder:${{ vars.RECORDER_VERSION }}
-        
-        docker pull docker.io/browsers/firefox:${{ vars.FIREFOX_VERSION }}
-        docker pull docker.io/browsers/chrome:${{ vars.CHROME_VERSION }}
-        docker pull docker.io/browsers/opera:${{ vars.OPERA_VERSION }}
-        docker pull docker.io/browsers/safari:${{ vars.SAFARI_VERSION }}
+        content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/chrome/tags")
+        version=`echo $content | jq -r '.results[1].name'`
+        echo "Latest Chrome version is $version"
+        docker pull docker.io/browsers/chrome:$version
+        docker tag docker.io/browsers/chrome:$version               public.ecr.aws/orienlabs/browsers/chrome:$version
+        docker tag docker.io/browsers/chrome:$version               public.ecr.aws/orienlabs/browsers/chrome:latest
+        docker push public.ecr.aws/orienlabs/browsers/chrome:$version
+        docker push public.ecr.aws/orienlabs/browsers/chrome:latest
 
-        docker tag docker.io/aerokube/selenoid-ui:${{ vars.SELENOID_UI_VERSION }} public.ecr.aws/orienlabs/selenoid-ui:${{ vars.SELENOID_UI_VERSION }}
-        docker tag docker.io/aerokube/selenoid:${{ vars.SELENOID_VERSION }}       public.ecr.aws/orienlabs/selenoid:${{ vars.SELENOID_VERSION }}
-        docker tag docker.io/aerokube/ggr-ui:${{ vars.GGR_UI_VERSION }}           public.ecr.aws/orienlabs/ggr-ui:${{ vars.GGR_UI_VERSION }}
-        docker tag docker.io/aerokube/ggr:${{ vars.GGR_VERSION }}                 public.ecr.aws/orienlabs/ggr:${{ vars.GGR_VERSION }}
-        docker tag docker.io/selenoid/video-recorder:${{ vars.RECORDER_VERSION }} public.ecr.aws/orienlabs/video-recorder:${{ vars.RECORDER_VERSION }}
-        
-        docker tag docker.io/browsers/firefox:${{ vars.FIREFOX_VERSION }}         public.ecr.aws/orienlabs/browsers/firefox:${{ vars.FIREFOX_VERSION }}
-        docker tag docker.io/browsers/chrome:${{ vars.CHROME_VERSION }}           public.ecr.aws/orienlabs/browsers/chrome:${{ vars.CHROME_VERSION }}
-        docker tag docker.io/browsers/opera:${{ vars.OPERA_VERSION }}             public.ecr.aws/orienlabs/browsers/opera:${{ vars.OPERA_VERSION }}
-        docker tag docker.io/browsers/safari:${{ vars.SAFARI_VERSION }}           public.ecr.aws/orienlabs/browsers/safari:${{ vars.SAFARI_VERSION }}
+        content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/firefox/tags")
+        version=`echo $content | jq -r '.results[1].name'`
+        echo "Latest Firefox version is $version"
+        docker pull docker.io/browsers/firefox:$version
+        docker tag docker.io/browsers/firefox:$version               public.ecr.aws/orienlabs/browsers/firefox:$version
+        docker tag docker.io/browsers/firefox:$version               public.ecr.aws/orienlabs/browsers/firefox:latest
+        docker push public.ecr.aws/orienlabs/browsers/firefox:$version
+        docker push public.ecr.aws/orienlabs/browsers/firefox:latest
 
-        docker tag docker.io/aerokube/selenoid-ui:${{ vars.SELENOID_UI_VERSION }} public.ecr.aws/orienlabs/selenoid-ui:latest
-        docker tag docker.io/aerokube/selenoid:${{ vars.SELENOID_VERSION }}       public.ecr.aws/orienlabs/selenoid:latest
-        docker tag docker.io/aerokube/ggr-ui:${{ vars.GGR_UI_VERSION }}           public.ecr.aws/orienlabs/ggr-ui:latest
-        docker tag docker.io/aerokube/ggr:${{ vars.GGR_VERSION }}                 public.ecr.aws/orienlabs/ggr:latest
-        docker tag docker.io/selenoid/video-recorder:${{ vars.RECORDER_VERSION }} public.ecr.aws/orienlabs/video-recorder:latest
-        
-        docker tag docker.io/browsers/firefox:${{ vars.FIREFOX_VERSION }}         public.ecr.aws/orienlabs/browsers/firefox:latest
-        docker tag docker.io/browsers/chrome:${{ vars.CHROME_VERSION }}           public.ecr.aws/orienlabs/browsers/chrome:latest
-        docker tag docker.io/browsers/opera:${{ vars.OPERA_VERSION }}             public.ecr.aws/orienlabs/browsers/opera:latest
-        docker tag docker.io/browsers/safari:${{ vars.SAFARI_VERSION }}           public.ecr.aws/orienlabs/browsers/safari:latest
+        content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/opera/tags")
+        version=`echo $content | jq -r '.results[1].name'`
+        echo "Latest Opera version is $version"
+        docker pull docker.io/browsers/opera:$version
+        docker tag docker.io/browsers/opera:$version               public.ecr.aws/orienlabs/browsers/opera:$version
+        docker tag docker.io/browsers/opera:$version               public.ecr.aws/orienlabs/browsers/opera:latest
+        docker push public.ecr.aws/orienlabs/browsers/opera:$version
+        docker push public.ecr.aws/orienlabs/browsers/opera:latest
 
-
-        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/orienlabs
-        
-        docker push public.ecr.aws/orienlabs/selenoid-ui:${{ vars.SELENOID_UI_VERSION }} 
-        docker push public.ecr.aws/orienlabs/selenoid:${{ vars.SELENOID_VERSION }}       
-        docker push public.ecr.aws/orienlabs/ggr-ui:${{ vars.GGR_UI_VERSION }} 
-        docker push public.ecr.aws/orienlabs/ggr:${{ vars.GGR_VERSION }}       
-        docker push public.ecr.aws/orienlabs/video-recorder:${{ vars.RECORDER_VERSION }} 
-         
-        docker push public.ecr.aws/orienlabs/browsers/firefox:${{ vars.FIREFOX_VERSION }}  
-        docker push public.ecr.aws/orienlabs/browsers/chrome:${{ vars.CHROME_VERSION }}  
-        docker push public.ecr.aws/orienlabs/browsers/opera:${{ vars.OPERA_VERSION }}    
-        docker push public.ecr.aws/orienlabs/browsers/safari:${{ vars.SAFARI_VERSION }}  
-        docker push public.ecr.aws/orienlabs/selenoid-ui:latest                         
-        docker push public.ecr.aws/orienlabs/selenoid:latest       
-        docker push public.ecr.aws/orienlabs/ggr-ui:latest                         
-        docker push public.ecr.aws/orienlabs/ggr:latest                            
-        docker push public.ecr.aws/orienlabs/video-recorder:latest                      
-                           
-        docker push public.ecr.aws/orienlabs/browsers/firefox:latest                    
-        docker push public.ecr.aws/orienlabs/browsers/chrome:latest                     
-        docker push public.ecr.aws/orienlabs/browsers/opera:latest                      
+        content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/safari/tags")
+        version=`echo $content | jq -r '.results[1].name'`
+        echo "Latest Safari version is $version"
+        docker pull docker.io/browsers/safari:$version
+        docker tag docker.io/browsers/safari:$version               public.ecr.aws/orienlabs/browsers/safari:$version
+        docker tag docker.io/browsers/safari:$version               public.ecr.aws/orienlabs/browsers/safari:latest
+        docker push public.ecr.aws/orienlabs/browsers/safari:$version
         docker push public.ecr.aws/orienlabs/browsers/safari:latest
+
+        content=$(curl -sS "https://hub.docker.com/v2/repositories/aerokube/selenoid-ui/tags")
+        version=`echo $content | jq -r '.results[1].name'`
+        echo "Latest Selenoid-UI version is $version"
+        docker pull docker.io/aerokube/selenoid-ui:$version
+        docker tag docker.io/aerokube/selenoid-ui:$version               public.ecr.aws/orienlabs/selenoid-ui:$version
+        docker tag docker.io/aerokube/selenoid-ui:$version               public.ecr.aws/orienlabs/selenoid-ui:latest
+        docker push public.ecr.aws/orienlabs/selenoid-ui:$version
+        docker push public.ecr.aws/orienlabs/selenoid-ui:latest
+
+        content=$(curl -sS "https://hub.docker.com/v2/repositories/aerokube/selenoid/tags")
+        version=`echo $content | jq -r '.results[1].name'`
+        echo "Latest Selenoid version is $version"
+        docker pull docker.io/aerokube/selenoid:$version
+        docker tag docker.io/aerokube/selenoid:$version               public.ecr.aws/orienlabs/selenoid:$version
+        docker tag docker.io/aerokube/selenoid:$version               public.ecr.aws/orienlabs/selenoid:latest
+        docker push public.ecr.aws/orienlabs/selenoid:$version
+        docker push public.ecr.aws/orienlabs/selenoid:latest
+
+        content=$(curl -sS "https://hub.docker.com/v2/repositories/aerokube/ggr-ui/tags")
+        version=`echo $content | jq -r '.results[1].name'`
+        echo "Latest GGR-UI version is $version"
+        docker pull docker.io/aerokube/ggr-ui:$version
+        docker tag docker.io/aerokube/ggr-ui:$version               public.ecr.aws/orienlabs/ggr-ui:$version
+        docker tag docker.io/aerokube/ggr-ui:$version               public.ecr.aws/orienlabs/ggr-ui:latest
+        docker push public.ecr.aws/orienlabs/ggr-ui:$version
+        docker push public.ecr.aws/orienlabs/ggr-ui:latest
+
+        content=$(curl -sS "https://hub.docker.com/v2/repositories/aerokube/ggr/tags")
+        version=`echo $content | jq -r '.results[1].name'`
+        echo "Latest ggr version is $version"
+        docker pull docker.io/aerokube/ggr:$version
+        docker tag docker.io/aerokube/ggr:$version               public.ecr.aws/orienlabs/ggr:$version
+        docker tag docker.io/aerokube/ggr:$version               public.ecr.aws/orienlabs/ggr:latest
+        docker push public.ecr.aws/orienlabs/ggr:$version
+        docker push public.ecr.aws/orienlabs/ggr:latest
+
+        content=$(curl -sS "https://hub.docker.com/v2/repositories/selenoid/video-recorder/tags")
+        version=`echo $content | jq -r '.results[1].name'`
+        echo "Latest Video Recorder version is $version"
+        docker pull docker.io/selenoid/video-recorder:$version
+        docker tag docker.io/selenoid/video-recorder:$version               public.ecr.aws/orienlabs/video-recorder:$version
+        docker tag docker.io/selenoid/video-recorder:$version               public.ecr.aws/orienlabs/video-recorder:latest
+        docker push public.ecr.aws/orienlabs/video-recorder:$version
+        docker push public.ecr.aws/orienlabs/video-recorder:latest
