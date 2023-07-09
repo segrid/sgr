@@ -17,8 +17,9 @@ do
     apt-get install -y apache2-utils
 done
 
-while ! command_exists mount
+while ! command_exists /sbin/mount.nfs
 do
+    echo "Installing nfs-common"
     apt-get install -y nfs-common
 done
 
