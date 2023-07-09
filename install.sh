@@ -105,6 +105,8 @@ docker rm `docker ps -a -q --filter name=segrid-router` -f
 
 docker network create segrid
 [[ -z "${SEGRID_VERSION}" ]] && SEGRID_VERSION='latest' || SEGRID_VERSION="${SEGRID_VERSION}"
+[[ -z "${LOGGER}" ]] && LOGGER='INFO' || LOGGER="${LOGGER}"
+
 echo "starting segrid router version $SEGRID_VERSION"
 docker pull public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
 docker run -d \
@@ -119,12 +121,13 @@ docker run -d \
     -e AWC_EC2_METADATA_DISABLED=false           \
     -e DOCKER_HOST=unix:///var/run/docker.sock 	 \
     -e GGR_DIR=/home/segrid/config/grid-router 	 \
-    -e GGR_QUOTA_USER=$GGR_USER 	             \
-    -e GGR_QUOTA_PASSWORD=$GGR_PASSWORD 	     \
+    -e GGR_QUOTA_USER=$GGR_USER 	               \
+    -e GGR_QUOTA_PASSWORD=$GGR_PASSWORD 	       \
     -e CONFIG_DIR=/home/segrid/config            \
     -e SEGRID_VERSION=$SEGRID_VERSION 	         \
+    -e _JAVA_OPTIONS=-Dlogging.level.com.orienlabs=$LOGGER 	                         \
     --net=host                                   \
-    --pull always 			                     \
+    --pull always 			                         \
     -v /home/segrid:/home/segrid:rw              \
     -v /:/host:ro                                \
     public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
