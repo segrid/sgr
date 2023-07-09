@@ -17,7 +17,7 @@ jobs:
         docker pull docker.io/aerokube/selenoid:${{ vars.SELENOID_VERSION }}
         docker pull docker.io/aerokube/ggr-ui:${{ vars.GGR_UI_VERSION }}
         docker pull docker.io/aerokube/ggr:${{ vars.GGR_VERSION }}
-        docker pull docker.io/selenoid/video-recorder:${{ vars.RECORDER_VERSION }}
+        docker pull docker.io/aerokube/video-recorder:${{ vars.RECORDER_VERSION }}
         docker pull docker.io/browsers/edge:${{ vars.EDGE_VERSION }}
         docker pull docker.io/browsers/firefox:${{ vars.FIREFOX_VERSION }}
         docker pull docker.io/browsers/chrome:${{ vars.CHROME_VERSION }}
@@ -28,7 +28,7 @@ jobs:
         docker tag docker.io/aerokube/selenoid:${{ vars.SELENOID_VERSION }}       public.ecr.aws/orienlabs/selenoid:${{ vars.SELENOID_VERSION }}
         docker tag docker.io/aerokube/ggr-ui:${{ vars.GGR_UI_VERSION }}           public.ecr.aws/orienlabs/ggr-ui:${{ vars.GGR_UI_VERSION }}
         docker tag docker.io/aerokube/ggr:${{ vars.GGR_VERSION }}                 public.ecr.aws/orienlabs/ggr:${{ vars.GGR_VERSION }}
-        docker tag docker.io/selenoid/video-recorder:${{ vars.RECORDER_VERSION }} public.ecr.aws/orienlabs/video-recorder:${{ vars.RECORDER_VERSION }}
+        docker tag docker.io/aerokube/video-recorder:${{ vars.RECORDER_VERSION }} public.ecr.aws/orienlabs/video-recorder:${{ vars.RECORDER_VERSION }}
         docker tag docker.io/browsers/edge:${{ vars.EDGE_VERSION }}               public.ecr.aws/orienlabs/browsers/edge:${{ vars.EDGE_VERSION }}
         docker tag docker.io/browsers/firefox:${{ vars.FIREFOX_VERSION }}         public.ecr.aws/orienlabs/browsers/firefox:${{ vars.FIREFOX_VERSION }}
         docker tag docker.io/browsers/chrome:${{ vars.CHROME_VERSION }}           public.ecr.aws/orienlabs/browsers/chrome:${{ vars.CHROME_VERSION }}
@@ -39,7 +39,7 @@ jobs:
         docker tag docker.io/aerokube/selenoid:${{ vars.SELENOID_VERSION }}       public.ecr.aws/orienlabs/selenoid:latest
         docker tag docker.io/aerokube/ggr-ui:${{ vars.GGR_UI_VERSION }}           public.ecr.aws/orienlabs/ggr-ui:latest
         docker tag docker.io/aerokube/ggr:${{ vars.GGR_VERSION }}                 public.ecr.aws/orienlabs/ggr:latest
-        docker tag docker.io/selenoid/video-recorder:${{ vars.RECORDER_VERSION }} public.ecr.aws/orienlabs/video-recorder:latest
+        docker tag docker.io/aerokube/video-recorder:${{ vars.RECORDER_VERSION }} public.ecr.aws/orienlabs/video-recorder:latest
         docker tag docker.io/browsers/edge:${{ vars.EDGE_VERSION }}               public.ecr.aws/orienlabs/browsers/edge:latest
         docker tag docker.io/browsers/firefox:${{ vars.FIREFOX_VERSION }}         public.ecr.aws/orienlabs/browsers/firefox:latest
         docker tag docker.io/browsers/chrome:${{ vars.CHROME_VERSION }}           public.ecr.aws/orienlabs/browsers/chrome:latest
