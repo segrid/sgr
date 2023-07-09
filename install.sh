@@ -126,6 +126,7 @@ docker run -d \
     --net=host                                   \
     --pull always 			                     \
     -v /home/segrid:/home/segrid:rw              \
+    -v /:/host:ro                                \
     public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
 
 #keep it connected from a Jenkins machine    
