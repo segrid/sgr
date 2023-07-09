@@ -56,7 +56,7 @@ jobs:
         docker push public.ecr.aws/orienlabs/browsers/opera:latest
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/safari/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[0].name'`      #using index 0 as safari currently does not has a latest tag in docker repo
         echo "Latest Safari version is $version"
         docker pull docker.io/browsers/safari:$version
         docker tag docker.io/browsers/safari:$version               public.ecr.aws/orienlabs/browsers/safari:$version
