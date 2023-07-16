@@ -68,7 +68,6 @@ if [ $CLOUD_PROVIDER == "azure" ]; then
   client_id=`cat instanceToken.json | jq -r '.client_id'`
 fi
 
-docker rm `docker ps -a -q --filter name=segrid-router` -f
 echo "Current Instance ID : $inst_id, Availability Zone: $availability_zone" 
 
 #allow port access from outside the instance
@@ -101,6 +100,7 @@ service SeGridRouter disable
 chmod -R 777 /home/segrid
 
 docker rm `docker ps -a -q --filter name=segrid-router` -f
+docker rm `docker ps -a -q --filter name=sgr` -f
 
 docker network create segrid
 [[ -z "${SEGRID_VERSION}" ]] && SEGRID_VERSION='latest' || SEGRID_VERSION="${SEGRID_VERSION}"
@@ -110,9 +110,9 @@ echo "starting segrid router version $SEGRID_VERSION"
 docker pull public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
 docker run -d \
     --restart no                                 \
-	-v /var/run/docker.sock:/var/run/docker.sock \
-    -p 8080:8080 			                     \
-    --name segrid-router 	                     \
+	  -v /var/run/docker.sock:/var/run/docker.sock \
+    -p 8080:8080 			                           \
+    --name sgr          	                       \
     -e CLOUD_PROVIDER=$CLOUD_PROVIDER            \
     -e INSTANCE_ID=$inst_id                      \
     -e INSTANCE_IP=$inst_ip                      \
@@ -132,4 +132,4 @@ docker run -d \
     public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
 
 #keep it connected from a Jenkins machine    
-#docker logs -f segrid-router
+#docker logs --follow sgr
