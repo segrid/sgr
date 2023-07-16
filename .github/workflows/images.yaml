@@ -9,7 +9,7 @@ jobs:
   pull_push_images:
     runs-on: ubuntu-latest
     steps:
-    - name: Pull Docker Image and Push to ECR
+    - name: Pull Docker Image and Push to AWS ECR
       run: |
         which curl
         which jq
@@ -108,3 +108,86 @@ jobs:
         docker tag docker.io/selenoid/video-recorder:$version               public.ecr.aws/orienlabs/video-recorder:latest
         docker push public.ecr.aws/orienlabs/video-recorder:$version
         docker push public.ecr.aws/orienlabs/video-recorder:latest
+
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: 'Login to browsers.azurecr.io'
+      uses: azure/docker-login@v1
+      with:
+        login-server: browsers.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Push Browser Images to Azure ECR
+      run: |
+        echo "Latest Edge version is $version"
+        docker tag docker.io/browsers/edge:$version               browsers.azurecr.io/edge:$version
+        docker tag docker.io/browsers/edge:$version               browsers.azurecr.io/edge:latest
+        docker push browsers.azurecr.io/edge:$version
+        docker push browsers.azurecr.io/edge:latest
+        
+        echo "Latest Chrome version is $version"
+        docker tag docker.io/browsers/chrome:$version               browsers.azurecr.io/chrome:$version
+        docker tag docker.io/browsers/chrome:$version               browsers.azurecr.io/chrome:latest
+        docker push browsers.azurecr.io/chrome:$version
+        docker push browsers.azurecr.io/chrome:latest
+        
+        echo "Latest Firefox version is $version"
+        docker tag docker.io/browsers/firefox:$version               browsers.azurecr.io/firefox:$version
+        docker tag docker.io/browsers/firefox:$version               browsers.azurecr.io/firefox:latest
+        docker push browsers.azurecr.io/firefox:$version
+        docker push browsers.azurecr.io/firefox:latest
+        
+        echo "Latest Opera version is $version"
+        docker tag docker.io/browsers/opera:$version               browsers.azurecr.io/opera:$version
+        docker tag docker.io/browsers/opera:$version               browsers.azurecr.io/opera:latest
+        docker push browsers.azurecr.io/opera:$version
+        docker push browsers.azurecr.io/opera:latest
+        
+        echo "Latest Safari version is $version"
+        docker tag docker.io/browsers/safari:$version               browsers.azurecr.io/safari:$version
+        docker tag docker.io/browsers/safari:$version               browsers.azurecr.io/safari:latest
+        docker push browsers.azurecr.io/safari:$version
+        docker push browsers.azurecr.io/safari:latest
+
+    - name: 'Login to orienlabs.azurecr.io'
+      uses: azure/docker-login@v1
+      with:
+        login-server: orienlabs.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+  
+    - name: Push Docker Images to Azure ECR
+      run: |
+        echo "Latest Selenoid-UI version is $version"
+        docker tag docker.io/aerokube/selenoid-ui:$version      orienlabs.azurecr.io/selenoid-ui:$version
+        docker tag docker.io/aerokube/selenoid-ui:$version      orienlabs.azurecr.io/selenoid-ui:latest
+        docker push orienlabs.azurecr.io/selenoid-ui:$version
+        docker push orienlabs.azurecr.io/selenoid-ui:latest
+        
+        echo "Latest Selenoid version is $version"
+        docker tag docker.io/aerokube/selenoid:$version         orienlabs.azurecr.io/selenoid:$version
+        docker tag docker.io/aerokube/selenoid:$version         orienlabs.azurecr.io/selenoid:latest
+        docker push orienlabs.azurecr.io/selenoid:$version
+        docker push orienlabs.azurecr.io/selenoid:latest
+        
+        echo "Latest GGR-UI version is $version"
+        docker tag docker.io/aerokube/ggr-ui:$version           orienlabs.azurecr.io/ggr-ui:$version
+        docker tag docker.io/aerokube/ggr-ui:$version           orienlabs.azurecr.io/ggr-ui:latest
+        docker push orienlabs.azurecr.io/ggr-ui:$version
+        docker push orienlabs.azurecr.io/ggr-ui:latest
+        
+        echo "Latest ggr version is $version"
+        docker tag docker.io/aerokube/ggr:$version               orienlabs.azurecr.io/ggr:$version
+        docker tag docker.io/aerokube/ggr:$version               orienlabs.azurecr.io/ggr:latest
+        docker push orienlabs.azurecr.io/ggr:$version
+        docker push orienlabs.azurecr.io/ggr:latest
+        
+        echo "Latest Video Recorder version is $version"
+        docker tag docker.io/selenoid/video-recorder:$version     orienlabs.azurecr.io/video-recorder:$version
+        docker tag docker.io/selenoid/video-recorder:$version     orienlabs.azurecr.io/video-recorder:latest
+        docker push orienlabs.azurecr.io/video-recorder:$version
+        docker push orienlabs.azurecr.io/video-recorder:latest
