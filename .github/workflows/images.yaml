@@ -13,52 +13,52 @@ jobs:
       id: image-version
       run: |
         content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/edge/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest Edge version is $version"
         echo "edge=$version" >> $GITHUB_OUTPUT
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/chrome/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest Chrome version is $version"
         echo "chrome=$version" >> $GITHUB_OUTPUT
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/firefox/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest Firefox version is $version"
         echo "firefox=$version" >> $GITHUB_OUTPUT
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/opera/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest Opera version is $version"
         echo "opera=$version" >> $GITHUB_OUTPUT
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/browsers/safari/tags")
-        version=`echo $content | jq -r '.results[0].name'`      #using index 0 as safari currently does not has a latest tag in docker repo
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest Safari version is $version"
         echo "safari=$version" >> $GITHUB_OUTPUT
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/aerokube/selenoid-ui/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest Selenoid-UI version is $version"
         echo "selenoid-ui=$version" >> $GITHUB_OUTPUT
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/aerokube/selenoid/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest Selenoid version is $version"
         echo "selenoid=$version" >> $GITHUB_OUTPUT
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/aerokube/ggr-ui/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest GGR-UI version is $version"
         echo "ggr-ui=$version" >> $GITHUB_OUTPUT
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/aerokube/ggr/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest ggr version is $version"
         echo "ggr=$version" >> $GITHUB_OUTPUT
 
         content=$(curl -sS "https://hub.docker.com/v2/repositories/selenoid/video-recorder/tags")
-        version=`echo $content | jq -r '.results[1].name'`
+        version=`echo $content | jq -r '.results[].name | select(contains("latest") | not)' | head -n 1` 
         echo "Latest Video Recorder version is $version"
         echo "video-recorder=$version" >> $GITHUB_OUTPUT
 
@@ -199,7 +199,7 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
   
-    - name: Push Docker Images to Azure ECR
+    - name: Push Selenium Images to Azure ECR
       run: |
         version=${{ steps.image-version.outputs.selenoid-ui }}
         echo "Latest Selenoid-UI version is $version"
