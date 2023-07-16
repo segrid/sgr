@@ -48,7 +48,6 @@ if [ $CLOUD_PROVIDER == "aws" ]; then
 
   #enable host access from container
   aws ec2 modify-instance-metadata-options --instance-id $inst_id --http-put-response-hop-limit 2 --http-endpoint enabled
-
 fi
 
 if [ $CLOUD_PROVIDER == "azure" ]; then
@@ -58,12 +57,12 @@ if [ $CLOUD_PROVIDER == "azure" ]; then
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   done
   curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" > instanceMetadata.json
-  inst_id=`cat instanceMetadata.json | jq -r '.compute.vmId'`
+  inst_id=`cat instanceMetadata.json | jq -r '.compute.resourceId'`
+  subscription_id=`cat instanceMetadata.json | jq -r '.compute.subscriptionId'`
   inst_ip=`cat instanceMetadata.json | jq -r '.. | .privateIpAddress? // empty'`
 
   availability_zone=`cat instanceMetadata.json | jq -r '.compute.location'`
   
-  echo "Ensure Identity is created and assigned"
   curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/" > instanceToken.json
   access_token=`cat instanceToken.json | jq -r '.access_token'`
   client_id=`cat instanceToken.json | jq -r '.client_id'`
