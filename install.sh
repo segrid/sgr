@@ -55,6 +55,9 @@ if [ $CLOUD_PROVIDER == "azure" ]; then
   do
     echo "installing azure command line tool"
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+    curl -L https://aka.ms/InstallAzureCli | bash
+    
   done
   curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" > instanceMetadata.json
   inst_id=`cat instanceMetadata.json | jq -r '.compute.resourceId'`
@@ -68,7 +71,7 @@ if [ $CLOUD_PROVIDER == "azure" ]; then
   client_id=`cat instanceToken.json | jq -r '.client_id'`
 fi
 
-echo "Current Instance ID : $inst_id, Availability Zone: $availability_zone" 
+echo "Current Instance ID : $inst_id, IP: $inst_ip, Availability Zone: $availability_zone" 
 
 #allow port access from outside the instance
 docker network prune -f
@@ -116,7 +119,7 @@ docker run -d \
     -e CLOUD_PROVIDER=$CLOUD_PROVIDER            \
     -e INSTANCE_ID=$inst_id                      \
     -e INSTANCE_IP=$inst_ip                      \
-    -e AWS_REGION=$availability_zone             \
+    -e INSTANCE_REGION=$availability_zone        \
     -e AWC_EC2_METADATA_DISABLED=false           \
     -e DOCKER_HOST=unix:///var/run/docker.sock 	 \
     -e GGR_DIR=/home/segrid/config/grid-router 	 \
