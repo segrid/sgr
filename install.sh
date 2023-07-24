@@ -55,9 +55,6 @@ if [ $CLOUD_PROVIDER == "azure" ]; then
   do
     echo "installing azure command line tool"
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-    curl -L https://aka.ms/InstallAzureCli | bash
-    
   done
   curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" > instanceMetadata.json
   inst_id=`cat instanceMetadata.json | jq -r '.compute.resourceId'`
