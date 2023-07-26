@@ -35,6 +35,9 @@ do
     apt-get install -y jq
 done
 
+#default image
+SEGRID_IMAGE="public.ecr.aws/orienlabs/segrid-router"
+
 if [ $CLOUD_PROVIDER == "aws" ]; then
   while ! command_exists aws
   do
@@ -48,29 +51,28 @@ if [ $CLOUD_PROVIDER == "aws" ]; then
 
   #enable host access from container
   aws ec2 modify-instance-metadata-options --instance-id $inst_id --http-put-response-hop-limit 2 --http-endpoint enabled
-
 fi
 
 if [ $CLOUD_PROVIDER == "azure" ]; then
+  SEGRID_IMAGE="orienlabs.azurecr.io/segrid-router"
   while ! command_exists az
   do
     echo "installing azure command line tool"
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   done
   curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" > instanceMetadata.json
-  inst_id=`cat instanceMetadata.json | jq -r '.compute.vmId'`
+  inst_id=`cat instanceMetadata.json | jq -r '.compute.resourceId'`
+  subscription_id=`cat instanceMetadata.json | jq -r '.compute.subscriptionId'`
   inst_ip=`cat instanceMetadata.json | jq -r '.. | .privateIpAddress? // empty'`
 
   availability_zone=`cat instanceMetadata.json | jq -r '.compute.location'`
   
-  echo "Ensure Identity is created and assigned"
   curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/" > instanceToken.json
   access_token=`cat instanceToken.json | jq -r '.access_token'`
   client_id=`cat instanceToken.json | jq -r '.client_id'`
 fi
 
-docker rm `docker ps -a -q --filter name=segrid-router` -f
-echo "Current Instance ID : $inst_id, Availability Zone: $availability_zone" 
+echo "Current Instance ID : $inst_id, IP: $inst_ip, Availability Zone: $availability_zone" 
 
 #allow port access from outside the instance
 docker network prune -f
@@ -102,6 +104,7 @@ service SeGridRouter disable
 chmod -R 777 /home/segrid
 
 docker rm `docker ps -a -q --filter name=segrid-router` -f
+docker rm `docker ps -a -q --filter name=sgr` -f
 
 docker network create segrid
 [[ -z "${SEGRID_VERSION}" ]] && SEGRID_VERSION='latest' || SEGRID_VERSION="${SEGRID_VERSION}"
@@ -111,13 +114,13 @@ echo "starting segrid router version $SEGRID_VERSION"
 docker pull public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
 docker run -d \
     --restart no                                 \
-	-v /var/run/docker.sock:/var/run/docker.sock \
-    -p 8080:8080 			                     \
-    --name segrid-router 	                     \
+	  -v /var/run/docker.sock:/var/run/docker.sock \
+    -p 8080:8080 			                           \
+    --name sgr          	                       \
     -e CLOUD_PROVIDER=$CLOUD_PROVIDER            \
     -e INSTANCE_ID=$inst_id                      \
     -e INSTANCE_IP=$inst_ip                      \
-    -e AWS_REGION=$availability_zone             \
+    -e INSTANCE_REGION=$availability_zone        \
     -e AWC_EC2_METADATA_DISABLED=false           \
     -e DOCKER_HOST=unix:///var/run/docker.sock 	 \
     -e GGR_DIR=/home/segrid/config/grid-router 	 \
@@ -130,7 +133,7 @@ docker run -d \
     --pull always 			                         \
     -v /home/segrid:/home/segrid:rw              \
     -v /:/host:ro                                \
-    public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
+    $SEGRID_IMAGE:$SEGRID_VERSION
 
 #keep it connected from a Jenkins machine    
-#docker logs -f segrid-router
+#docker logs --follow sgr
