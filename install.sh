@@ -35,6 +35,9 @@ do
     apt-get install -y jq
 done
 
+#default image
+SEGRID_IMAGE="public.ecr.aws/orienlabs/segrid-router"
+
 if [ $CLOUD_PROVIDER == "aws" ]; then
   while ! command_exists aws
   do
@@ -51,6 +54,7 @@ if [ $CLOUD_PROVIDER == "aws" ]; then
 fi
 
 if [ $CLOUD_PROVIDER == "azure" ]; then
+  SEGRID_IMAGE="orienlabs.azurecr.io/segrid-router"
   while ! command_exists az
   do
     echo "installing azure command line tool"
@@ -129,7 +133,7 @@ docker run -d \
     --pull always 			                         \
     -v /home/segrid:/home/segrid:rw              \
     -v /:/host:ro                                \
-    public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
+    $SEGRID_IMAGE:$SEGRID_VERSION
 
 #keep it connected from a Jenkins machine    
 #docker logs --follow sgr
