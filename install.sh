@@ -133,6 +133,7 @@ docker run -d \
     --pull always 			                         \
     -v /home/segrid:/home/segrid:rw              \
     -v /:/host:ro                                \
+    --env-file <(env | grep SEGRID)              \
     $SEGRID_IMAGE:$SEGRID_VERSION
 
 #keep it connected from a Jenkins machine    
