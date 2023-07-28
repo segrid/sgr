@@ -48,6 +48,7 @@ if [ $CLOUD_PROVIDER == "aws" ]; then
   inst_id=`curl -H "X-aws-ec2-metadata-token: $AWS_TOKEN" -v http://169.254.169.254/latest/meta-data/instance-id`
   inst_ip=`curl -H "X-aws-ec2-metadata-token: $AWS_TOKEN" -v http://169.254.169.254/latest/meta-data/local-ipv4`
   availability_zone=`curl -H "X-aws-ec2-metadata-token: $AWS_TOKEN" -v http://169.254.169.254/latest/meta-data/placement/availability-zone| sed 's/.$//'`
+  SEGRID_INSTANCE_REGION=$availability_zone
 
   #enable host access from container
   aws ec2 modify-instance-metadata-options --instance-id $inst_id --http-put-response-hop-limit 2 --http-endpoint enabled
@@ -66,7 +67,8 @@ if [ $CLOUD_PROVIDER == "azure" ]; then
   inst_ip=`cat instanceMetadata.json | jq -r '.. | .privateIpAddress? // empty'`
   inst_role=`cat instanceMetadata.json | jq -r '.. | .tagsList? //empty | .[] | select(.name=="GridRole") | .value'`
   availability_zone=`cat instanceMetadata.json | jq -r '.compute.location'`
-
+  SEGRID_INSTANCE_REGION=$availability_zone
+  
   [[ ! -z "${inst_role}" ]] && SEGRID_ROLE="$inst_role"
   [[ ! -z "${SEGRID_ROLE}" ]] && echo "Starting in $SEGRID_ROLE role"
 
