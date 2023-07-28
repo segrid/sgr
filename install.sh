@@ -64,9 +64,12 @@ if [ $CLOUD_PROVIDER == "azure" ]; then
   inst_id=`cat instanceMetadata.json | jq -r '.compute.resourceId'`
   subscription_id=`cat instanceMetadata.json | jq -r '.compute.subscriptionId'`
   inst_ip=`cat instanceMetadata.json | jq -r '.. | .privateIpAddress? // empty'`
-
+  inst_role=`cat instanceMetadata.json | jq -r '.. | .tagsList? //empty | .[] | select(.name=="GridRole") | .value'`
   availability_zone=`cat instanceMetadata.json | jq -r '.compute.location'`
-  
+
+  [[ ! -z "${inst_role}" ]] && SEGRID_ROLE="$inst_role"
+  [[ ! -z "${SEGRID_ROLE}" ]] && echo "Starting in $SEGRID_ROLE role"
+
   curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/" > instanceToken.json
   access_token=`cat instanceToken.json | jq -r '.access_token'`
   client_id=`cat instanceToken.json | jq -r '.client_id'`
