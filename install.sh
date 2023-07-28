@@ -2,8 +2,8 @@
 
 systemctl stop unattended-upgrades
 
-[[ -z "${CLOUD_PROVIDER}" ]] && CLOUD_PROVIDER='aws' || CLOUD_PROVIDER="${CLOUD_PROVIDER}"
-echo "Cloud provider is ${CLOUD_PROVIDER}"
+[[ -z "${SEGRID_CLOUD_PROVIDER}" ]] && SEGRID_CLOUD_PROVIDER='aws' || SEGRID_CLOUD_PROVIDER="${SEGRID_CLOUD_PROVIDER}"
+echo "Cloud provider is ${SEGRID_CLOUD_PROVIDER}"
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
@@ -38,23 +38,22 @@ done
 #default image
 SEGRID_IMAGE="public.ecr.aws/orienlabs/segrid-router"
 
-if [ $CLOUD_PROVIDER == "aws" ]; then
+if [ $SEGRID_CLOUD_PROVIDER == "aws" ]; then
   while ! command_exists aws
   do
     echo "installing aws command line toos"
     apt-get install -y awscli
   done
   AWS_TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
-  inst_id=`curl -H "X-aws-ec2-metadata-token: $AWS_TOKEN" -v http://169.254.169.254/latest/meta-data/instance-id`
-  inst_ip=`curl -H "X-aws-ec2-metadata-token: $AWS_TOKEN" -v http://169.254.169.254/latest/meta-data/local-ipv4`
-  availability_zone=`curl -H "X-aws-ec2-metadata-token: $AWS_TOKEN" -v http://169.254.169.254/latest/meta-data/placement/availability-zone| sed 's/.$//'`
-  SEGRID_INSTANCE_REGION=$availability_zone
+  SEGRID_INSTANCE_ID=`curl -H "X-aws-ec2-metadata-token: $AWS_TOKEN" -v http://169.254.169.254/latest/meta-data/instance-id`
+  SEGRID_INSTANCE_IP=`curl -H "X-aws-ec2-metadata-token: $AWS_TOKEN" -v http://169.254.169.254/latest/meta-data/local-ipv4`
+  SEGRID_INSTANCE_REGION=`curl -H "X-aws-ec2-metadata-token: $AWS_TOKEN" -v http://169.254.169.254/latest/meta-data/placement/availability-zone| sed 's/.$//'`
 
   #enable host access from container
-  aws ec2 modify-instance-metadata-options --instance-id $inst_id --http-put-response-hop-limit 2 --http-endpoint enabled
+  aws ec2 modify-instance-metadata-options --instance-id $SEGRID_INSTANCE_ID --http-put-response-hop-limit 2 --http-endpoint enabled
 fi
 
-if [ $CLOUD_PROVIDER == "azure" ]; then
+if [ $SEGRID_CLOUD_PROVIDER == "azure" ]; then
   SEGRID_IMAGE="orienlabs.azurecr.io/segrid-router"
   while ! command_exists az
   do
@@ -62,22 +61,21 @@ if [ $CLOUD_PROVIDER == "azure" ]; then
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   done
   curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" > instanceMetadata.json
-  inst_id=`cat instanceMetadata.json | jq -r '.compute.resourceId'`
-  subscription_id=`cat instanceMetadata.json | jq -r '.compute.subscriptionId'`
-  inst_ip=`cat instanceMetadata.json | jq -r '.. | .privateIpAddress? // empty'`
-  inst_role=`cat instanceMetadata.json | jq -r '.. | .tagsList? //empty | .[] | select(.name=="GridRole") | .value'`
-  availability_zone=`cat instanceMetadata.json | jq -r '.compute.location'`
-  SEGRID_INSTANCE_REGION=$availability_zone
-  
-  [[ ! -z "${inst_role}" ]] && SEGRID_ROLE="$inst_role"
+  SEGRID_INSTANCE_ID=`cat instanceMetadata.json | jq -r '.compute.resourceId'`
+  SEGRID_INSTANCE_IP=`cat instanceMetadata.json | jq -r '.. | .privateIpAddress? // empty'`
+  SEGRID_ROLE=`cat instanceMetadata.json | jq -r '.. | .tagsList? //empty | .[] | select(.name=="SEGRID_ROLE") | .value'`
+  SEGRID_INSTANCE_REGION=`cat instanceMetadata.json | jq -r '.compute.location'`
+
   [[ ! -z "${SEGRID_ROLE}" ]] && echo "Starting in $SEGRID_ROLE role"
+
+  SEGRID_VERSION=`cat instanceMetadata.json | jq -r '.. | .tagsList? //empty | .[] | select(.name=="SEGRID_VERSION") | .value'`
 
   curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/" > instanceToken.json
   access_token=`cat instanceToken.json | jq -r '.access_token'`
   client_id=`cat instanceToken.json | jq -r '.client_id'`
 fi
 
-echo "Current Instance ID : $inst_id, IP: $inst_ip, Availability Zone: $availability_zone" 
+echo "Current Instance ID : $SEGRID_INSTANCE_ID, IP: $SEGRID_INSTANCE_IP, Availability Zone: $SEGRID_INSTANCE_REGION" 
 
 #allow port access from outside the instance
 docker network prune -f
@@ -122,17 +120,12 @@ docker run -d \
 	  -v /var/run/docker.sock:/var/run/docker.sock \
     -p 8080:8080 			                           \
     --name sgr          	                       \
-    -e CLOUD_PROVIDER=$CLOUD_PROVIDER            \
-    -e INSTANCE_ID=$inst_id                      \
-    -e INSTANCE_IP=$inst_ip                      \
-    -e INSTANCE_REGION=$availability_zone        \
     -e AWC_EC2_METADATA_DISABLED=false           \
     -e DOCKER_HOST=unix:///var/run/docker.sock 	 \
     -e GGR_DIR=/home/segrid/config/grid-router 	 \
     -e GGR_QUOTA_USER=$GGR_USER 	               \
     -e GGR_QUOTA_PASSWORD=$GGR_PASSWORD 	       \
     -e CONFIG_DIR=/home/segrid/config            \
-    -e SEGRID_VERSION=$SEGRID_VERSION 	         \
     -e _JAVA_OPTIONS=-Dlogging.level.com.orienlabs=$LOGGER 	                         \
     --net=host                                   \
     --pull always 			                         \
