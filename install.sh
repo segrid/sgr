@@ -111,7 +111,6 @@ chmod -R 777 /home/segrid
 docker rm `docker ps -a -q --filter name=segrid-router` -f
 docker rm `docker ps -a -q --filter name=sgr` -f
 
-docker network create segrid
 [[ -z "${SEGRID_VERSION}" ]] && export SEGRID_VERSION='latest' || export SEGRID_VERSION="${SEGRID_VERSION}"
 [[ -z "${LOGGER}" ]] && export LOGGER='INFO' || export LOGGER="${LOGGER}"
 
