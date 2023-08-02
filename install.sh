@@ -128,7 +128,7 @@ docker run -d \
     -p 8080:8080 			                           \
     --name sgr          	                       \
     -e AWC_EC2_METADATA_DISABLED=false           \
-    --memory {$MAX_MEM_CON_MB}m                  \
+    --memory ${MAX_MEM_CON_MB}m                  \
     -e DOCKER_HOST=unix:///var/run/docker.sock 	 \
     -e GGR_DIR=/home/segrid/config/grid-router 	 \
     -e GGR_QUOTA_USER=$GGR_USER 	               \
