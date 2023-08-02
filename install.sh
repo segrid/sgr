@@ -118,6 +118,9 @@ docker network create segrid
 echo "Starting router with following environment variables"
 echo `env | grep SEGRID`
 
+export MAX_MEM_JDK_MB=$(expr `vmstat -s | grep 'total memory' | tr -s " " " " | cut -d " " -f2` / 1024 / 8 "*" 5)
+export MAX_MEM_CON_MB=$(expr `vmstat -s | grep 'total memory' | tr -s " " " " | cut -d " " -f2` / 1024 / 8 "*" 6)
+
 echo "starting segrid router version $SEGRID_VERSION"
 docker pull public.ecr.aws/orienlabs/segrid-router:$SEGRID_VERSION
 docker run -d \
@@ -125,13 +128,15 @@ docker run -d \
 	  -v /var/run/docker.sock:/var/run/docker.sock \
     -p 8080:8080 			                           \
     --name sgr          	                       \
+    --memory {$MAX_MEM_CON_MB}m                  \
     -e AWC_EC2_METADATA_DISABLED=false           \
     -e DOCKER_HOST=unix:///var/run/docker.sock 	 \
     -e GGR_DIR=/home/segrid/config/grid-router 	 \
     -e GGR_QUOTA_USER=$GGR_USER 	               \
     -e GGR_QUOTA_PASSWORD=$GGR_PASSWORD 	       \
     -e CONFIG_DIR=/home/segrid/config            \
-    -e _JAVA_OPTIONS=-Dlogging.level.com.orienlabs=$LOGGER 	                         \
+    -e _JAVA_OPTIONS=-Dlogging.level.com.orienlabs=$LOGGER 	  \
+    -e JAVA_TOOL_OPTIONS="-Xms100M -Xmx${MAX_MEM_JDK_MB}M"    \
     --net=host                                   \
     --pull always 			                         \
     -v /home/segrid:/home/segrid:rw              \
