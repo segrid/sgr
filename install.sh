@@ -13,7 +13,7 @@ apt-get -o DPkg::Lock::Tieout=-1 update -qq
 
 while ! command_exists docker
 do
-   curl -fsSL https://get.docker.com -o get-docker.sh
+    curl -fsSL https://get.docker.com -o get-docker.sh
 done
 
 while ! command_exists htpasswd
@@ -115,7 +115,6 @@ chmod -R 777 /home/segrid
 docker rm `docker ps -a -q --filter name=segrid-router` -f
 docker rm `docker ps -a -q --filter name=sgr` -f
 
-docker network create segrid
 [[ -z "${SEGRID_VERSION}" ]] && export SEGRID_VERSION='latest' || export SEGRID_VERSION="${SEGRID_VERSION}"
 [[ -z "${LOGGER}" ]] && export LOGGER='INFO' || export LOGGER="${LOGGER}"
 
@@ -132,14 +131,14 @@ docker run -d \
 	  -v /var/run/docker.sock:/var/run/docker.sock \
     -p 8080:8080 			                           \
     --name sgr          	                       \
-    --memory {$MAX_MEM_CON_MB}m                  \
     -e AWC_EC2_METADATA_DISABLED=false           \
+    --memory ${MAX_MEM_CON_MB}m                  \
     -e DOCKER_HOST=unix:///var/run/docker.sock 	 \
     -e GGR_DIR=/home/segrid/config/grid-router 	 \
     -e GGR_QUOTA_USER=$GGR_USER 	               \
     -e GGR_QUOTA_PASSWORD=$GGR_PASSWORD 	       \
     -e CONFIG_DIR=/home/segrid/config            \
-    -e _JAVA_OPTIONS=-Dlogging.level.com.orienlabs=$LOGGER 	  \
+    -e _JAVA_OPTIONS=-Dlogging.level.com.orienlabs=$LOGGER 	                         \
     -e JAVA_TOOL_OPTIONS="-Xms100M -Xmx${MAX_MEM_JDK_MB}M"    \
     --net=host                                   \
     --pull always 			                         \
