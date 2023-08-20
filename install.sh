@@ -10,7 +10,11 @@ command_exists() {
 }
 
 apt-get -o DPkg::Lock::Tieout=-1 update -qq
-curl -fsSL https://get.docker.com -o get-docker.sh
+
+while ! command_exists docker
+do
+   curl -fsSL https://get.docker.com -o get-docker.sh
+done
 
 while ! command_exists htpasswd
 do
