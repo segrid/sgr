@@ -11,11 +11,6 @@ command_exists() {
 
 apt-get -o DPkg::Lock::Tieout=-1 update -qq
 
-while ! command_exists docker
-do
-    curl -fsSL https://get.docker.com -o get-docker.sh
-done
-
 while ! command_exists htpasswd
 do
     apt-get install -y apache2-utils
@@ -30,6 +25,7 @@ done
 while ! command_exists docker
 do
     echo "installing docker engine"
+    curl -fsSL https://get.docker.com -o get-docker.sh
     /bin/sh get-docker.sh
 done
 
