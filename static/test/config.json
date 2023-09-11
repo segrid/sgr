@@ -1,0 +1,92 @@
+{
+        "uiTheme": "default",
+        "cloudProvider": "aws",
+        "routerRole": "HUB",
+        "configVersion": "1.2.2",
+        "cloudConfig": {
+            "scalingMode": "MANUAL",
+            "instanceType": "c5a.4xlarge",
+            "maxSessions": 32,
+            "imageId": "ami-007948b04637518d6",
+            "imageDiskSize": 32,
+            "zone": "us-east-1a",
+            "region": "us-east-1a",
+            "arn": "arn:aws:iam::504357334963:instance-profile/spot-fleet-mahix-policy",
+            "namePrefix": "segrid-node-",
+            "osUserName": "ubuntu",
+            "osPassword": "3d7775f0-0633-4637-a069-ed36765ff685",
+            "securityGroups": [
+                "sg-062645ec8dd1c4a52",
+                "sg-0facaf37ed6b36ba1",
+                "sg-0781bb036ec4164ae"
+            ],
+            "subnetIds": [
+                "subnet-0bc24b45459dbf960"
+            ],
+            "keyPair": "QA",
+            "tags": [
+                {
+                    "name": "Cost-Center",
+                    "value": "hix-individual"
+                },
+                {
+                    "name": "Stack",
+                    "value": "automation"
+                },
+                {
+                    "name": "CustomerAccount",
+                    "value": "MA"
+                },
+                {
+                    "name": "Product-Customer",
+                    "value": "product-perfauto-HIX"
+                },
+                {
+                    "name": "Role",
+                    "value": "Jenkins_Slave"
+                },
+                {
+                    "name": "jenkins_server_url",
+                    "value": "https://automation.demo.hcinternal.net/jenkins/"
+                },
+                {
+                    "name": "Owner",
+                    "value": "anil.kumar1@hcentive.com"
+                },
+                {
+                    "name": "Environment",
+                    "value": "automation"
+                },
+                {
+                    "name": "OS",
+                    "value": "UBUNTU"
+                },
+                {
+                    "name": "AppName",
+                    "value": "HIX"
+                },
+                {
+                    "name": "Name",
+                    "value": "automation-spot"
+                },
+                {
+                    "name": "jenkins_slave_type",
+                    "value": "demand_vanilla_ubuntu_20_optum_golden_image"
+                },
+                {
+                    "name": "Client",
+                    "value": "ma"
+                }
+            ],
+            "cleanUpCycle": 15,
+            "maxInstances": 10,
+            "minAvailableSessions": 0,
+            "cleanupOnShutdown": true,
+            "enableLogs": true,
+            "logLocation": "/efs/test_output/selenoid/logs",
+            "enableVideo": true,
+            "videoLocation": "/efs/test_output/selenoid/video",
+            "initScript": "#!/bin/bash\r\n\r\nsudo apt-get install -y nfs-common\r\nsudo mkdir -p /efs \r\nsudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 10.10.20.237:/ /efs"
+        },
+        "seleniumConfig": {}
+}

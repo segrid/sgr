@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "golang.go",
+        "ms-vscode-remote.remote-wsl",
+        "ms-azuretools.vscode-docker"
+    ]
+}

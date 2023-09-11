@@ -1,0 +1,905 @@
+{
+    "count": 8,
+    "instances": [
+        {
+            "selenoidUiPort": 8081,
+            "maxSessions": 32,
+            "instanceName": "ip-10-30-13-24.ec2.internal",
+            "enableLogs": false,
+            "privateIp": "10.30.13.24",
+            "scalingMode": "MANUAL",
+            "markedForTermination": false,
+            "currentSessionsCount": 3,
+            "hubReady": true,
+            "cleanUpCycle": 15,
+            "instanceId": "i-0e81f4bdb2cdce8ff",
+            "instanceState": "running",
+            "zone": "us-east-1a",
+            "dashboradUrl": "http://10.30.13.24:8081",
+            "namePrefix": "segrid-node-",
+            "arn": "arn:aws:iam::504357334963:instance-profile/spot-fleet-mahix-policy",
+            "maxInstances": 1,
+            "live": true,
+            "subnetIds": [
+                "subnet-0bc24b45459dbf960"
+            ],
+            "logLocation": "/root/.aerokube/logs/",
+            "imageDiskSize": 64,
+            "imageId": "ami-007948b04637518d6",
+            "selenoidPort": 4444,
+            "osPassword": "82a779ab-9e26-4ca8-aaa5-4708a8519abb",
+            "instanceType": "c5a.4xlarge",
+            "enableVideo": false,
+            "publicIp": null,
+            "hubUrl": "http://10.30.13.24:4444/wd/hub",
+            "cleanupOnShutdown": true,
+            "tags": [
+                {
+                    "name": "Owner",
+                    "value": "anil.kumar1@hcentive.com"
+                },
+                {
+                    "name": "SEGRID_ROLE",
+                    "value": "NODE"
+                },
+                {
+                    "name": "Cost-Center",
+                    "value": "hix-individual"
+                },
+                {
+                    "name": "Product-Customer",
+                    "value": "product-perfauto-HIX"
+                },
+                {
+                    "name": "Role",
+                    "value": "Jenkins_Slave"
+                },
+                {
+                    "name": "Stack",
+                    "value": "automation"
+                },
+                {
+                    "name": "Client",
+                    "value": "ma"
+                },
+                {
+                    "name": "CustomerAccount",
+                    "value": "MA"
+                },
+                {
+                    "name": "SEGRID_ROUTER_IP",
+                    "value": "10.30.13.204"
+                },
+                {
+                    "name": "AppName",
+                    "value": "HIX"
+                },
+                {
+                    "name": "Name",
+                    "value": "segrid-node-7uHzP"
+                },
+                {
+                    "name": "SEGRID_ROUTER_ID",
+                    "value": "i-0a8ea390d0ceadb20"
+                },
+                {
+                    "name": "Environment",
+                    "value": "automation"
+                },
+                {
+                    "name": "jenkins_server_url",
+                    "value": "https://automation.demo.hcinternal.net/jenkins/"
+                },
+                {
+                    "name": "jenkins_slave_type",
+                    "value": "demand_vanilla_ubuntu_20_optum_golden_image"
+                },
+                {
+                    "name": "GoldenImageType",
+                    "value": "ApprovedOptumGoldenImage"
+                },
+                {
+                    "name": "OS",
+                    "value": "UBUNTU"
+                }
+            ],
+            "osUserName": "ubuntu",
+            "videoLocation": "/root/.aerokube/video/",
+            "securityGroups": [
+                "sg-062645ec8dd1c4a52",
+                "sg-0facaf37ed6b36ba1",
+                "sg-0781bb036ec4164ae"
+            ],
+            "keyPair": null,
+            "initScript": "",
+            "arch": "X86_64",
+            "region": "us-east-1a",
+            "minAvailableSessions": 0
+        },
+        {
+            "selenoidUiPort": 8081,
+            "maxSessions": 32,
+            "instanceName": "ip-10-30-13-236.ec2.internal",
+            "enableLogs": false,
+            "privateIp": "10.30.13.236",
+            "scalingMode": "MANUAL",
+            "markedForTermination": false,
+            "currentSessionsCount": 0,
+            "hubReady": true,
+            "cleanUpCycle": 15,
+            "instanceId": "i-0fe8aa1f7c5b74491",
+            "instanceState": "running",
+            "zone": "us-east-1a",
+            "dashboradUrl": "http://10.30.13.236:8081",
+            "namePrefix": "segrid-node-",
+            "arn": "arn:aws:iam::504357334963:instance-profile/spot-fleet-mahix-policy",
+            "maxInstances": 1,
+            "live": true,
+            "subnetIds": [
+                "subnet-0bc24b45459dbf960"
+            ],
+            "logLocation": "/root/.aerokube/logs/",
+            "imageDiskSize": 64,
+            "imageId": "ami-007948b04637518d6",
+            "selenoidPort": 4444,
+            "osPassword": "dd869b59-aee2-4fd6-a5c6-887efb875f14",
+            "instanceType": "c5a.4xlarge",
+            "enableVideo": false,
+            "publicIp": null,
+            "hubUrl": "http://10.30.13.236:4444/wd/hub",
+            "cleanupOnShutdown": true,
+            "tags": [
+                {
+                    "name": "SEGRID_ROUTER_ID",
+                    "value": "i-0a8ea390d0ceadb20"
+                },
+                {
+                    "name": "GoldenImageType",
+                    "value": "ApprovedOptumGoldenImage"
+                },
+                {
+                    "name": "Client",
+                    "value": "ma"
+                },
+                {
+                    "name": "Environment",
+                    "value": "automation"
+                },
+                {
+                    "name": "CustomerAccount",
+                    "value": "MA"
+                },
+                {
+                    "name": "AppName",
+                    "value": "HIX"
+                },
+                {
+                    "name": "Stack",
+                    "value": "automation"
+                },
+                {
+                    "name": "SEGRID_ROUTER_IP",
+                    "value": "10.30.13.204"
+                },
+                {
+                    "name": "Product-Customer",
+                    "value": "product-perfauto-HIX"
+                },
+                {
+                    "name": "Role",
+                    "value": "Jenkins_Slave"
+                },
+                {
+                    "name": "jenkins_server_url",
+                    "value": "https://automation.demo.hcinternal.net/jenkins/"
+                },
+                {
+                    "name": "Owner",
+                    "value": "anil.kumar1@hcentive.com"
+                },
+                {
+                    "name": "OS",
+                    "value": "UBUNTU"
+                },
+                {
+                    "name": "Cost-Center",
+                    "value": "hix-individual"
+                },
+                {
+                    "name": "Name",
+                    "value": "segrid-node-Hhwui"
+                },
+                {
+                    "name": "SEGRID_ROLE",
+                    "value": "NODE"
+                },
+                {
+                    "name": "jenkins_slave_type",
+                    "value": "demand_vanilla_ubuntu_20_optum_golden_image"
+                }
+            ],
+            "osUserName": "ubuntu",
+            "videoLocation": "/root/.aerokube/video/",
+            "securityGroups": [
+                "sg-062645ec8dd1c4a52",
+                "sg-0facaf37ed6b36ba1",
+                "sg-0781bb036ec4164ae"
+            ],
+            "keyPair": null,
+            "initScript": "",
+            "arch": "X86_64",
+            "region": "us-east-1a",
+            "minAvailableSessions": 0
+        },
+        {
+            "selenoidUiPort": 8081,
+            "maxSessions": 32,
+            "instanceName": "ip-10-30-13-53.ec2.internal",
+            "enableLogs": false,
+            "privateIp": "10.30.13.53",
+            "scalingMode": "MANUAL",
+            "markedForTermination": false,
+            "currentSessionsCount": 0,
+            "hubReady": true,
+            "cleanUpCycle": 15,
+            "instanceId": "i-0196f930f89fed66f",
+            "instanceState": "running",
+            "zone": "us-east-1a",
+            "dashboradUrl": "http://10.30.13.53:8081",
+            "namePrefix": "segrid-node-",
+            "arn": "arn:aws:iam::504357334963:instance-profile/spot-fleet-mahix-policy",
+            "maxInstances": 1,
+            "live": true,
+            "subnetIds": [
+                "subnet-0bc24b45459dbf960"
+            ],
+            "logLocation": "/root/.aerokube/logs/",
+            "imageDiskSize": 64,
+            "imageId": "ami-007948b04637518d6",
+            "selenoidPort": 4444,
+            "osPassword": "50b03211-dcba-4461-9921-b37ef02d0f9b",
+            "instanceType": "c5a.4xlarge",
+            "enableVideo": false,
+            "publicIp": null,
+            "hubUrl": "http://10.30.13.53:4444/wd/hub",
+            "cleanupOnShutdown": true,
+            "tags": [
+                {
+                    "name": "AppName",
+                    "value": "HIX"
+                },
+                {
+                    "name": "Name",
+                    "value": "segrid-node-Hhwui"
+                },
+                {
+                    "name": "Environment",
+                    "value": "automation"
+                },
+                {
+                    "name": "OS",
+                    "value": "UBUNTU"
+                },
+                {
+                    "name": "GoldenImageType",
+                    "value": "ApprovedOptumGoldenImage"
+                },
+                {
+                    "name": "Stack",
+                    "value": "automation"
+                },
+                {
+                    "name": "Cost-Center",
+                    "value": "hix-individual"
+                },
+                {
+                    "name": "Client",
+                    "value": "ma"
+                },
+                {
+                    "name": "CustomerAccount",
+                    "value": "MA"
+                },
+                {
+                    "name": "SEGRID_ROLE",
+                    "value": "NODE"
+                },
+                {
+                    "name": "jenkins_slave_type",
+                    "value": "demand_vanilla_ubuntu_20_optum_golden_image"
+                },
+                {
+                    "name": "SEGRID_ROUTER_IP",
+                    "value": "10.30.13.204"
+                },
+                {
+                    "name": "jenkins_server_url",
+                    "value": "https://automation.demo.hcinternal.net/jenkins/"
+                },
+                {
+                    "name": "Role",
+                    "value": "Jenkins_Slave"
+                },
+                {
+                    "name": "SEGRID_ROUTER_ID",
+                    "value": "i-0a8ea390d0ceadb20"
+                },
+                {
+                    "name": "Product-Customer",
+                    "value": "product-perfauto-HIX"
+                },
+                {
+                    "name": "Owner",
+                    "value": "anil.kumar1@hcentive.com"
+                }
+            ],
+            "osUserName": "ubuntu",
+            "videoLocation": "/root/.aerokube/video/",
+            "securityGroups": [
+                "sg-062645ec8dd1c4a52",
+                "sg-0facaf37ed6b36ba1",
+                "sg-0781bb036ec4164ae"
+            ],
+            "keyPair": null,
+            "initScript": "",
+            "arch": "X86_64",
+            "region": "us-east-1a",
+            "minAvailableSessions": 0
+        },
+        {
+            "selenoidUiPort": 8081,
+            "maxSessions": 32,
+            "instanceName": "ip-10-30-13-50.ec2.internal",
+            "enableLogs": false,
+            "privateIp": "10.30.13.50",
+            "scalingMode": "MANUAL",
+            "markedForTermination": false,
+            "currentSessionsCount": 0,
+            "hubReady": true,
+            "cleanUpCycle": 15,
+            "instanceId": "i-090928e55f77ac967",
+            "instanceState": "running",
+            "zone": "us-east-1a",
+            "dashboradUrl": "http://10.30.13.50:8081",
+            "namePrefix": "segrid-node-",
+            "arn": "arn:aws:iam::504357334963:instance-profile/spot-fleet-mahix-policy",
+            "maxInstances": 1,
+            "live": true,
+            "subnetIds": [
+                "subnet-0bc24b45459dbf960"
+            ],
+            "logLocation": "/root/.aerokube/logs/",
+            "imageDiskSize": 64,
+            "imageId": "ami-007948b04637518d6",
+            "selenoidPort": 4444,
+            "osPassword": "47cc9b73-a539-4ef4-b044-5c1cd385fc1f",
+            "instanceType": "c5a.4xlarge",
+            "enableVideo": false,
+            "publicIp": null,
+            "hubUrl": "http://10.30.13.50:4444/wd/hub",
+            "cleanupOnShutdown": true,
+            "tags": [
+                {
+                    "name": "Product-Customer",
+                    "value": "product-perfauto-HIX"
+                },
+                {
+                    "name": "Role",
+                    "value": "Jenkins_Slave"
+                },
+                {
+                    "name": "SEGRID_ROUTER_IP",
+                    "value": "10.30.13.204"
+                },
+                {
+                    "name": "jenkins_slave_type",
+                    "value": "demand_vanilla_ubuntu_20_optum_golden_image"
+                },
+                {
+                    "name": "Owner",
+                    "value": "anil.kumar1@hcentive.com"
+                },
+                {
+                    "name": "OS",
+                    "value": "UBUNTU"
+                },
+                {
+                    "name": "SEGRID_ROLE",
+                    "value": "NODE"
+                },
+                {
+                    "name": "Cost-Center",
+                    "value": "hix-individual"
+                },
+                {
+                    "name": "GoldenImageType",
+                    "value": "ApprovedOptumGoldenImage"
+                },
+                {
+                    "name": "SEGRID_ROUTER_ID",
+                    "value": "i-0a8ea390d0ceadb20"
+                },
+                {
+                    "name": "Stack",
+                    "value": "automation"
+                },
+                {
+                    "name": "Client",
+                    "value": "ma"
+                },
+                {
+                    "name": "AppName",
+                    "value": "HIX"
+                },
+                {
+                    "name": "Environment",
+                    "value": "automation"
+                },
+                {
+                    "name": "Name",
+                    "value": "segrid-node-VJZlO"
+                },
+                {
+                    "name": "CustomerAccount",
+                    "value": "MA"
+                },
+                {
+                    "name": "jenkins_server_url",
+                    "value": "https://automation.demo.hcinternal.net/jenkins/"
+                }
+            ],
+            "osUserName": "ubuntu",
+            "videoLocation": "/root/.aerokube/video/",
+            "securityGroups": [
+                "sg-062645ec8dd1c4a52",
+                "sg-0facaf37ed6b36ba1",
+                "sg-0781bb036ec4164ae"
+            ],
+            "keyPair": null,
+            "initScript": "",
+            "arch": "X86_64",
+            "region": "us-east-1a",
+            "minAvailableSessions": 0
+        },
+        {
+            "selenoidUiPort": 8081,
+            "maxSessions": 32,
+            "instanceName": "ip-10-30-13-224.ec2.internal",
+            "enableLogs": false,
+            "privateIp": "10.30.13.224",
+            "scalingMode": "MANUAL",
+            "markedForTermination": false,
+            "currentSessionsCount": 0,
+            "hubReady": false,
+            "cleanUpCycle": 15,
+            "instanceId": "i-02bc43ab7e00a651b",
+            "instanceState": "stopped",
+            "zone": "us-east-1a",
+            "dashboradUrl": "http://10.30.13.224:8081",
+            "namePrefix": "segrid-node-",
+            "arn": "arn:aws:iam::504357334963:instance-profile/spot-fleet-mahix-policy",
+            "maxInstances": 1,
+            "live": false,
+            "subnetIds": [
+                "subnet-0bc24b45459dbf960"
+            ],
+            "logLocation": "/root/.aerokube/logs/",
+            "imageDiskSize": 64,
+            "imageId": "ami-007948b04637518d6",
+            "selenoidPort": 4444,
+            "osPassword": "9ec8f417-3aa6-4f8b-96be-d5207007ecf3",
+            "instanceType": "c5a.4xlarge",
+            "enableVideo": false,
+            "publicIp": null,
+            "hubUrl": "http://10.30.13.224:4444/wd/hub",
+            "cleanupOnShutdown": true,
+            "tags": [
+                {
+                    "name": "OS",
+                    "value": "UBUNTU"
+                },
+                {
+                    "name": "AppName",
+                    "value": "HIX"
+                },
+                {
+                    "name": "jenkins_slave_type",
+                    "value": "demand_vanilla_ubuntu_20_optum_golden_image"
+                },
+                {
+                    "name": "Product-Customer",
+                    "value": "product-perfauto-HIX"
+                },
+                {
+                    "name": "Role",
+                    "value": "Jenkins_Slave"
+                },
+                {
+                    "name": "jenkins_server_url",
+                    "value": "https://automation.demo.hcinternal.net/jenkins/"
+                },
+                {
+                    "name": "Environment",
+                    "value": "automation"
+                },
+                {
+                    "name": "Owner",
+                    "value": "anil.kumar1@hcentive.com"
+                },
+                {
+                    "name": "Name",
+                    "value": "segrid-node-f8dwy"
+                },
+                {
+                    "name": "SEGRID_ROUTER_ID",
+                    "value": "i-0a8ea390d0ceadb20"
+                },
+                {
+                    "name": "Cost-Center",
+                    "value": "hix-individual"
+                },
+                {
+                    "name": "Stack",
+                    "value": "automation"
+                },
+                {
+                    "name": "CustomerAccount",
+                    "value": "MA"
+                },
+                {
+                    "name": "SEGRID_ROLE",
+                    "value": "NODE"
+                },
+                {
+                    "name": "SEGRID_ROUTER_IP",
+                    "value": "10.30.13.204"
+                },
+                {
+                    "name": "Client",
+                    "value": "ma"
+                }
+            ],
+            "osUserName": "ubuntu",
+            "videoLocation": "/root/.aerokube/video/",
+            "securityGroups": [
+                "sg-062645ec8dd1c4a52",
+                "sg-0facaf37ed6b36ba1",
+                "sg-0781bb036ec4164ae"
+            ],
+            "keyPair": null,
+            "initScript": "",
+            "arch": "X86_64",
+            "region": "us-east-1a",
+            "minAvailableSessions": 0
+        },
+        {
+            "selenoidUiPort": 8081,
+            "maxSessions": 32,
+            "instanceName": "ip-10-30-13-207.ec2.internal",
+            "enableLogs": false,
+            "privateIp": "10.30.13.207",
+            "scalingMode": "MANUAL",
+            "markedForTermination": false,
+            "currentSessionsCount": 0,
+            "hubReady": false,
+            "cleanUpCycle": 15,
+            "instanceId": "i-095bc56c143a24102",
+            "instanceState": "stopped",
+            "zone": "us-east-1a",
+            "dashboradUrl": "http://10.30.13.207:8081",
+            "namePrefix": "segrid-node-",
+            "arn": "arn:aws:iam::504357334963:instance-profile/spot-fleet-mahix-policy",
+            "maxInstances": 1,
+            "live": false,
+            "subnetIds": [
+                "subnet-0bc24b45459dbf960"
+            ],
+            "logLocation": "/root/.aerokube/logs/",
+            "imageDiskSize": 64,
+            "imageId": "ami-007948b04637518d6",
+            "selenoidPort": 4444,
+            "osPassword": "429fb177-50a0-47df-839c-694418291fef",
+            "instanceType": "c5a.4xlarge",
+            "enableVideo": false,
+            "publicIp": null,
+            "hubUrl": "http://10.30.13.207:4444/wd/hub",
+            "cleanupOnShutdown": true,
+            "tags": [
+                {
+                    "name": "GoldenImageType",
+                    "value": "ApprovedOptumGoldenImage"
+                },
+                {
+                    "name": "SEGRID_ROUTER_ID",
+                    "value": "i-0a8ea390d0ceadb20"
+                },
+                {
+                    "name": "Name",
+                    "value": "segrid-node-IFsUb"
+                },
+                {
+                    "name": "Environment",
+                    "value": "automation"
+                },
+                {
+                    "name": "Stack",
+                    "value": "automation"
+                },
+                {
+                    "name": "Cost-Center",
+                    "value": "hix-individual"
+                },
+                {
+                    "name": "CustomerAccount",
+                    "value": "MA"
+                },
+                {
+                    "name": "OS",
+                    "value": "UBUNTU"
+                },
+                {
+                    "name": "Owner",
+                    "value": "anil.kumar1@hcentive.com"
+                },
+                {
+                    "name": "Product-Customer",
+                    "value": "product-perfauto-HIX"
+                },
+                {
+                    "name": "Role",
+                    "value": "Jenkins_Slave"
+                },
+                {
+                    "name": "SEGRID_ROUTER_IP",
+                    "value": "10.30.13.204"
+                },
+                {
+                    "name": "jenkins_slave_type",
+                    "value": "demand_vanilla_ubuntu_20_optum_golden_image"
+                },
+                {
+                    "name": "SEGRID_ROLE",
+                    "value": "NODE"
+                },
+                {
+                    "name": "jenkins_server_url",
+                    "value": "https://automation.demo.hcinternal.net/jenkins/"
+                },
+                {
+                    "name": "AppName",
+                    "value": "HIX"
+                },
+                {
+                    "name": "Client",
+                    "value": "ma"
+                }
+            ],
+            "osUserName": "ubuntu",
+            "videoLocation": "/root/.aerokube/video/",
+            "securityGroups": [
+                "sg-062645ec8dd1c4a52",
+                "sg-0facaf37ed6b36ba1",
+                "sg-0781bb036ec4164ae"
+            ],
+            "keyPair": null,
+            "initScript": "",
+            "arch": "X86_64",
+            "region": "us-east-1a",
+            "minAvailableSessions": 0
+        },
+        {
+            "selenoidUiPort": 8081,
+            "maxSessions": 32,
+            "instanceName": "ip-10-30-13-237.ec2.internal",
+            "enableLogs": false,
+            "privateIp": "10.30.13.237",
+            "scalingMode": "MANUAL",
+            "markedForTermination": false,
+            "currentSessionsCount": 0,
+            "hubReady": false,
+            "cleanUpCycle": 15,
+            "instanceId": "i-0a80089b511794ec4",
+            "instanceState": "stopped",
+            "zone": "us-east-1a",
+            "dashboradUrl": "http://10.30.13.237:8081",
+            "namePrefix": "segrid-node-",
+            "arn": "arn:aws:iam::504357334963:instance-profile/spot-fleet-mahix-policy",
+            "maxInstances": 1,
+            "live": false,
+            "subnetIds": [
+                "subnet-0bc24b45459dbf960"
+            ],
+            "logLocation": "/root/.aerokube/logs/",
+            "imageDiskSize": 64,
+            "imageId": "ami-007948b04637518d6",
+            "selenoidPort": 4444,
+            "osPassword": "765ac3f7-e2b3-4402-a63b-3c91846c4d88",
+            "instanceType": "c5a.4xlarge",
+            "enableVideo": false,
+            "publicIp": null,
+            "hubUrl": "http://10.30.13.237:4444/wd/hub",
+            "cleanupOnShutdown": true,
+            "tags": [
+                {
+                    "name": "jenkins_server_url",
+                    "value": "https://automation.demo.hcinternal.net/jenkins/"
+                },
+                {
+                    "name": "OS",
+                    "value": "UBUNTU"
+                },
+                {
+                    "name": "jenkins_slave_type",
+                    "value": "demand_vanilla_ubuntu_20_optum_golden_image"
+                },
+                {
+                    "name": "SEGRID_ROUTER_IP",
+                    "value": "10.30.13.204"
+                },
+                {
+                    "name": "AppName",
+                    "value": "HIX"
+                },
+                {
+                    "name": "SEGRID_ROLE",
+                    "value": "NODE"
+                },
+                {
+                    "name": "Name",
+                    "value": "segrid-node-H2aPh"
+                },
+                {
+                    "name": "Client",
+                    "value": "ma"
+                },
+                {
+                    "name": "CustomerAccount",
+                    "value": "MA"
+                },
+                {
+                    "name": "Cost-Center",
+                    "value": "hix-individual"
+                },
+                {
+                    "name": "GoldenImageType",
+                    "value": "ApprovedOptumGoldenImage"
+                },
+                {
+                    "name": "Stack",
+                    "value": "automation"
+                },
+                {
+                    "name": "Environment",
+                    "value": "automation"
+                },
+                {
+                    "name": "Owner",
+                    "value": "anil.kumar1@hcentive.com"
+                },
+                {
+                    "name": "Product-Customer",
+                    "value": "product-perfauto-HIX"
+                },
+                {
+                    "name": "Role",
+                    "value": "Jenkins_Slave"
+                },
+                {
+                    "name": "SEGRID_ROUTER_ID",
+                    "value": "i-0a8ea390d0ceadb20"
+                }
+            ],
+            "osUserName": "ubuntu",
+            "videoLocation": "/root/.aerokube/video/",
+            "securityGroups": [
+                "sg-062645ec8dd1c4a52",
+                "sg-0facaf37ed6b36ba1",
+                "sg-0781bb036ec4164ae"
+            ],
+            "keyPair": null,
+            "initScript": "",
+            "arch": "X86_64",
+            "region": "us-east-1a",
+            "minAvailableSessions": 0
+        },
+        {
+            "selenoidUiPort": 8081,
+            "maxSessions": 1,
+            "instanceName": "ip-10-30-13-204.ec2.internal",
+            "enableLogs": false,
+            "privateIp": "10.30.13.204",
+            "scalingMode": "MANUAL",
+            "markedForTermination": false,
+            "currentSessionsCount": 0,
+            "hubReady": true,
+            "cleanUpCycle": 15,
+            "instanceId": "i-0a8ea390d0ceadb20",
+            "instanceState": "running",
+            "zone": "us-east-1a",
+            "dashboradUrl": "http://10.30.13.204:8081",
+            "namePrefix": "segrid-node-",
+            "arn": "arn:aws:iam::504357334963:instance-profile/spot-fleet-mahix-policy",
+            "maxInstances": 1,
+            "live": true,
+            "subnetIds": [
+                "subnet-0bc24b45459dbf960"
+            ],
+            "logLocation": "/root/.aerokube/logs/",
+            "imageDiskSize": 64,
+            "imageId": "ami-0278ba62ec2d563d9",
+            "selenoidPort": 4444,
+            "osPassword": "1f0c767e-22b2-4e94-a463-e0c6874c184a",
+            "instanceType": "c5a.xlarge",
+            "enableVideo": false,
+            "publicIp": null,
+            "hubUrl": "http://10.30.13.204:4444/wd/hub",
+            "cleanupOnShutdown": true,
+            "tags": [
+                {
+                    "name": "Cost-Center",
+                    "value": "hix-individual"
+                },
+                {
+                    "name": "Stack",
+                    "value": "automation"
+                },
+                {
+                    "name": "CustomerAccount",
+                    "value": "MA"
+                },
+                {
+                    "name": "Product-Customer",
+                    "value": "product-perfauto-HIX"
+                },
+                {
+                    "name": "Role",
+                    "value": "Jenkins_Slave"
+                },
+                {
+                    "name": "jenkins_server_url",
+                    "value": "https://automation.demo.hcinternal.net/jenkins/"
+                },
+                {
+                    "name": "Owner",
+                    "value": "anil.kumar1@hcentive.com"
+                },
+                {
+                    "name": "Environment",
+                    "value": "automation"
+                },
+                {
+                    "name": "OS",
+                    "value": "UBUNTU"
+                },
+                {
+                    "name": "AppName",
+                    "value": "HIX"
+                },
+                {
+                    "name": "Name",
+                    "value": "automation-spot"
+                },
+                {
+                    "name": "jenkins_slave_type",
+                    "value": "demand_vanilla_ubuntu_20_optum_golden_image"
+                },
+                {
+                    "name": "Client",
+                    "value": "ma"
+                }
+            ],
+            "osUserName": "ubuntu",
+            "videoLocation": "/root/.aerokube/video/",
+            "securityGroups": [
+                "sg-062645ec8dd1c4a52",
+                "sg-0facaf37ed6b36ba1",
+                "sg-0781bb036ec4164ae"
+            ],
+            "keyPair": null,
+            "initScript": "",
+            "arch": "X86_64",
+            "region": "us-east-1a",
+            "minAvailableSessions": 0
+        }
+    ]
+}
